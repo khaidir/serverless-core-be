@@ -14,7 +14,7 @@ const getPost = async ( event ) => {
     try {
         const params = {
             TableName: process.env.DYNAMODB_TABLE_NAME,
-            Key: marshall({ postsId: event.pathParameter.postsId })
+            Key: marshall({ postId: event.pathParameter.postId })
         };
         const { Item } = await db.send(new GetItemCommand(params));
         console.log({Item});
@@ -71,7 +71,7 @@ const updatePost = async ( event ) => {
         const objKeys = Object.keys(body);
         const params = {
             TableName: process.env.DYNAMODB_TABLE_NAME,
-            Key: marshall({ postsId: event.pathParameter.postsId }),
+            Key: marshall({ postId: event.pathParameter.postId }),
             UpdateExpression: `SET ${objKeys.map((_, index) => `#key${index} = :value${index}`).join(", ")}`,
             ExpressionAttributeNames: objKeys.reduce((acc, key, index) => ({
                 ...acc,
