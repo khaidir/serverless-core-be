@@ -46,7 +46,6 @@ const createPost = async ( event ) => {
         };
         const { createResult } = await db.send(new PutItemCommand(params));
 
-        console.log({Item});
         response.body = JSON.stringify({
             message: "Successfully created post.",
             createResult,
